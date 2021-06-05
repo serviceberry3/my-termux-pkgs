@@ -8,6 +8,6 @@ fi
 
 am startservice \
 	--user 0 \
-	-a com.termux.service_wake_lock \
-	com.termux/com.termux.app.TermuxService \
+	-a weiner.termux.service_wake_lock \
+	weiner.termux/weiner.termux.app.TermuxService \
 	> /dev/null

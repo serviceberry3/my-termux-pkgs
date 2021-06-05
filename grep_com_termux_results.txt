@@ -1,0 +1,21 @@
+disabled-packages/apk-tools/src-termux_prefix.h.patch:+#define TERMUX_PREFIX_RELATIVE "data/data/com.termux/files/usr/"
+packages/alpine/build.sh:	echo "openssl req -x509 -newkey rsa:2048 -keyout \$HOME/.alpine-smime/.pwd/MasterPassword.key -out \$HOME/.alpine-smime/.pwd/MasterPassword.crt -days 10000 -nodes -subj '/C=US/ST=dont/L=use/O=this Name/OU=for/CN=anything.com.termux'" >> postinst
+packages/dpkg/lib-dpkg-path-remove.c.patch:       '/data/data/com.termux.dpkg-tmp'
+packages/dpkg/lib-dpkg-path-remove.c.patch:       '/data/data/com.termux/files.dpkg-tmp'
+packages/dpkg/lib-dpkg-path-remove.c.patch:       '/data/data/com.termux/files/usr.dpkg-tmp'
+packages/ndk-sysroot/math-header.diff:--- data/data/com.termux/files/usr/include/c++/v1/cmath.orig	2019-03-24 00:31:49.512145195 +0000
+packages/ndk-sysroot/math-header.diff:--- data/data/com.termux/files/usr/include/c++/v1/math.h.orig	2019-03-24 01:10:28.881807799 +0000
+packages/tergent/0001-Automatically-unlock-keystore-using-fingerprint.patch:         .args(&["-n", "com.termux.api/.TermuxApiReceiver"])
+packages/termux-tools/termux-open:	-n com.termux/com.termux.app.TermuxOpenReceiver \
+packages/termux-tools/termux-reload-settings:am broadcast --user 0 -a com.termux.app.reload_style com.termux > /dev/null
+packages/termux-tools/termux-reset:		/system/bin/app_process / com.termux.termuxam.Am stopservice com.termux/.app.TermuxService
+packages/termux-tools/termux-setup-storage:		 --es com.termux.app.reload_style storage \
+packages/termux-tools/termux-setup-storage:		 -a com.termux.app.reload_style com.termux > /dev/null
+packages/termux-tools/termux-wake-lock:	-a com.termux.service_wake_lock \
+packages/termux-tools/termux-wake-lock:	com.termux/com.termux.app.TermuxService \
+packages/termux-tools/termux-wake-unlock:	-a com.termux.service_wake_unlock \
+packages/termux-tools/termux-wake-unlock:	com.termux/com.termux.app.TermuxService \
+packages/termux-tools/termux.1.md.in:    /storage/0123-ABCD/Android/data/com.termux/files
+packages/termux-tools/termux.1.md.in:    /storage/self/primary/Android/data/com.termux/files
+scripts/bin/update-whatprovides-db:		| xargs -rd\\n realpath -sm --relative-base="/data/data/com.termux/files/usr" -- \
+scripts/test-runner.sh:#!/data/data/com.termux/files/usr/bin/bash
