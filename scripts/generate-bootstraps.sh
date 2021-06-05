@@ -11,7 +11,7 @@ trap 'rm -rf $BOOTSTRAP_TMPDIR' EXIT
 
 # By default, bootstrap archives are compatible with Android >=7.0
 # and <10.
-BOOTSTRAP_ANDROID10_COMPATIBLE=false
+BOOTSTRAP_ANDROID10_COMPATIBLE=true
 
 # By default, bootstrap archives will be built for all architectures
 # supported by Termux application.
@@ -19,7 +19,9 @@ BOOTSTRAP_ANDROID10_COMPATIBLE=false
 TERMUX_ARCHITECTURES=("aarch64")
 
 # Can be changed by using '--repository' option.
-REPO_BASE_URL="https://packages.termux.org/apt/termux-main"
+#REPO_BASE_URL="https://packages.termux.org/apt/termux-main"
+REPO_BASE_URL="file:/home/nodog/Documents/aptrepo-debs/"
+
 
 # A list of non-essential packages. By default it is empty, but can
 # be filled with option '--add'.
@@ -46,7 +48,7 @@ read_package_list() {
 			echo "[*] Downloading package list for architecture '${architecture}'..."
 			if ! curl --fail --location \
 				--output "${BOOTSTRAP_TMPDIR}/packages.${architecture}" \
-				"${REPO_BASE_URL}/dists/stable/main/binary-${architecture}/Packages"; then
+				"${REPO_BASE_URL}/Packages"; then
 				if [ "$architecture" = "all" ]; then
 					echo "[!] Skipping architecture-independent package list as not available..."
 					continue
@@ -79,7 +81,7 @@ read_package_list() {
 	done
 }
 
-# Download specified package, its depenencies and then extract *.deb files to
+# Download specified package, its dependencies and then extract *.deb files to
 # the bootstrap root.
 pull_package() {
 	local package_name=$1
@@ -87,7 +89,13 @@ pull_package() {
 	mkdir -p "$package_tmpdir"
 
 	local package_url
+
+	#echo "hi"
+	#echo $(echo "${PACKAGE_METADATA[${package_name}]}" | grep -i "^Filename:")
+	#echo "/home/nodog/Documents/aptrepo-debs/xz-utils_5.2.5-1_aarch64.deb" | awk '{ print $2 }'
+
 	package_url="$REPO_BASE_URL/$(echo "${PACKAGE_METADATA[${package_name}]}" | grep -i "^Filename:" | awk '{ print $2 }')"
+	#echo $package_url
 	if [ "${package_url}" = "$REPO_BASE_URL" ] || [ "${package_url}" = "${REPO_BASE_URL}/" ]; then
 		echo "[!] Failed to determine URL for package '$package_name'."
 		exit 1
